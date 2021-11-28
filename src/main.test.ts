@@ -6,7 +6,7 @@ const getStateMock = jest.fn();
 const dispatchMock = jest.fn();
 const subscribeMock = jest.fn();
 
-jest.mock("./redux.ts", () => jest.fn);
+jest.mock("./redux", () => jest.fn());
 (Store as jest.Mock).mockImplementation(() => ({
   getState: getStateMock,
   dispatch: dispatchMock,
@@ -31,7 +31,7 @@ describe("Testing main functionality", () => {
             <button class="inc">+</button>
             <button class="dec">-</button>
             <input type="number" value="3">
-            <button class="plus">add</button>
+            <button class="add">add</button>
             <section>
                 <input type="color" value="">
                 <p id="color">Fill</p>
