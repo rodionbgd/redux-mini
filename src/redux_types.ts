@@ -9,7 +9,7 @@ export type State = {
   };
 };
 
-export type Reducer<S, A> = (state: S, action: A) => State;
+export type Reducer<S, A> = (state: S, action: A) => S;
 
 export type Reducers<S, A> = {
   [key: string]: Reducer<S, A>;
