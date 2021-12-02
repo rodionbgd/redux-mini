@@ -4,17 +4,18 @@ export type Action = {
 };
 
 export type State = {
-  [key: string]: {
-    [key: string]: any;
-  };
+  [key: string]: any;
 };
 
-export type Reducer<S, A> = (state: S, action: A) => S;
+export type Reducer<S extends State, A extends Action> = (
+  state: S | undefined,
+  action: A
+) => S;
 
-export type Reducers<S, A> = {
+export type Reducers<S extends State, A extends Action> = {
   [key: string]: Reducer<S, A>;
 };
-export type StoreType<S, A> = {
+export type StoreType<S extends State, A extends Action> = {
   getState(): S;
   dispatch(action: A): void;
   subscribe(cb: () => void): () => void;

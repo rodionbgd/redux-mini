@@ -3,7 +3,7 @@ import combineReducer from "./combine_reducer";
 import Store from "./redux";
 
 const setColor: Reducer<State, Action> = function setColor(
-  state: State,
+  state: State | undefined,
   action: Action
 ): State {
   switch (action.type) {
@@ -13,36 +13,36 @@ const setColor: Reducer<State, Action> = function setColor(
         color: action.payload,
       };
     default:
-      return state;
+      return state as State;
   }
 };
 
 const counter: Reducer<State, Action> = function counter(
-  state: State,
+  state: State | undefined,
   action: Action
 ): State {
   let newCounter = 0;
   switch (action.type) {
     case "INCREMENT":
-      newCounter = Number(state.counter) + 1;
+      newCounter = Number(state!.counter) + 1;
       return {
         ...state,
         counter: newCounter as any,
       };
     case "DECREMENT":
-      newCounter = Number(state.counter) - 1;
+      newCounter = Number(state!.counter) - 1;
       return {
         ...state,
         counter: newCounter as any,
       };
     case "INPUT":
-      newCounter = Number(state.counter) + action.payload;
+      newCounter = Number(state!.counter) + action.payload;
       return {
         ...state,
         counter: newCounter as any,
       };
     default:
-      return state;
+      return state as State;
   }
 };
 

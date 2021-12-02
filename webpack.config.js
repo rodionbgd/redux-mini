@@ -35,9 +35,6 @@ module.exports = {
   },
   resolve: {  extensions: ['.ts',], },
   devServer: {
-    static: {
-      directory: path.join(__dirname, "dev"),
-    },
     compress: true,
     port: 9000,
   },

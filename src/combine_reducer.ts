@@ -1,13 +1,17 @@
-import { Reducer, Reducers } from "./redux_types";
+import { Action, Reducer, Reducers, State } from "./redux_types";
 
-export default function combineReducer<S, A>(
+export default function combineReducer<S extends State, A extends Action>(
   reducers: Reducers<S, A>
 ): Reducer<S, A> {
-  return (state: S, action: A): S => {
+  return (state: S | undefined, action: A): S => {
     const newState = {} as S;
     Object.keys(reducers).forEach((prop) => {
-      // FIXME: remove any
-      (newState as any)[prop] = reducers[prop]((state as any)[prop], action);
+      if (state) {
+        (newState as Record<string, any>)[prop] = reducers[prop](
+          state[prop],
+          action
+        );
+      }
     });
     return newState;
   };

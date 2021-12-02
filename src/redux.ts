@@ -5,12 +5,12 @@ export default class Store implements StoreType<State, Action> {
 
   state: State;
 
-  subscribers: Function[];
+  subscribers: Set<(state: State) => any>;
 
   constructor(reducer: Reducer<State, Action>, initialState: State) {
     this.reduce = reducer;
     this.state = reducer(initialState as State, {} as Action);
-    this.subscribers = [];
+    this.subscribers = new Set<(state: State) => any>();
   }
 
   getState() {
@@ -27,10 +27,9 @@ export default class Store implements StoreType<State, Action> {
   }
 
   subscribe(cb: any) {
-    this.subscribers = [...this.subscribers, cb];
-    cb(this.state);
+    this.subscribers.add(cb);
     return () => {
-      this.subscribers = this.subscribers.filter((sub) => sub !== cb);
+      this.subscribers.delete(cb);
     };
   }
 }

@@ -10,7 +10,7 @@ describe("Redux functionality", () => {
   test("Instantiating Store", () => {
     expect(store).toBeInstanceOf(Store);
     expect(store.state).toStrictEqual(initialState);
-    expect(store.subscribers).toStrictEqual([]);
+    expect(store.subscribers).toStrictEqual(new Set());
   });
   test("Getting state", () => {
     expect(store.getState()).toStrictEqual(initialState);
@@ -56,13 +56,13 @@ describe("Redux functionality", () => {
 
       store.dispatch({ type: "DECREMENT" });
       expect(header.innerHTML).toBe("Counter: 0");
-      expect(store.subscribers.length).toBe(1);
+      expect(store.subscribers.size).toBe(1);
     });
     test("Unsubscribing", () => {
       counterSub();
       store.dispatch({ type: "INCREMENT" });
       expect(header.innerHTML).toBe("Counter: 0");
-      expect(store.subscribers.length).toBe(0);
+      expect(store.subscribers.size).toBe(0);
     });
   });
 });
